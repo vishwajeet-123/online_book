@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "Book": {
+      "title": "Book",
+      "description": "Represents a book in the store catalog.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the book." },
+        "author": { "type": "string", "description": "The author of the book." },
+        "category": { "type": "string", "description": "The genre or category." },
+        "price": { "type": "number", "description": "Price in USD." },
+        "stock": { "type": "number", "description": "Available inventory count." },
+        "rating": { "type": "number", "description": "Average user rating." },
+        "description": { "type": "string", "description": "Long form description." },
+        "imageUrl": { "type": "string", "description": "URL to book cover image." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "author", "price", "stock"]
+    },
+    "User": {
+      "title": "User",
+      "description": "System user profiles.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["ADMIN", "CUSTOMER"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer purchase order.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "items", "total", "status"]
+    }
+  },
+  "firestore": {
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Public catalog of books."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and roles."
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer order records."
+    }
+  }
+}
